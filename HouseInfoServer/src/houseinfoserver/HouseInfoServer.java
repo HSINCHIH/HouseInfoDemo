@@ -5,6 +5,8 @@
  */
 package houseinfoserver;
 
+import java.util.Scanner;
+
 /**
  *
  * @author developer
@@ -16,6 +18,16 @@ public class HouseInfoServer {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Log log = new Log("HouseInfoServer");
+        MainServer server = new MainServer();
+        if (!server.Start()) {
+            log.Writeln(String.format("%s %s", "main", "Start fail"));
+            return;
+        }
+        System.out.println("Press enter key to stop server");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        server.Stop();
     }
-    
+
 }
