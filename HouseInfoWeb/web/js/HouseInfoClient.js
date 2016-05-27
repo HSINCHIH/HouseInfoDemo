@@ -57,6 +57,7 @@ HouseInfoClient.prototype = {
     {
         console.log("OnClose");
         alert("Server Disconnect!!");
+        this.m_IsConnect = false;
         this.m_IsLogin = false;
     },
     Send: function (msg)
@@ -92,6 +93,10 @@ HouseInfoClient.prototype = {
     },
     Notify: function ()
     {
+        if (!this.m_IsLogin)
+        {
+            return;
+        }
         var input = $("#TB_INPUT").val();
         var newMsg = new Message();
         newMsg.Action = ServerAction.CLSV_NOFITY;
