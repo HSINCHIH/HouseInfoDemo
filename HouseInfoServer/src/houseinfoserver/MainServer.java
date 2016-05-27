@@ -5,6 +5,8 @@
  */
 package houseinfoserver;
 
+import java.util.HashMap;
+
 /**
  *
  * @author mark.chen
@@ -14,6 +16,8 @@ public class MainServer implements IReceiveMsgCallBack {
     Log m_Log = new Log("MainServer");
     String m_HostIP = "";
     WebSocketServerEP m_WebSocketServerEP = null;
+    HashMap<String, String> m_CLientList = new HashMap();
+    HashMap<String, String> m_MonitorList = new HashMap();
 
     public MainServer() {
         m_HostIP = Utilities.GetHostIP();
@@ -25,6 +29,10 @@ public class MainServer implements IReceiveMsgCallBack {
         switch (msg.Action) {
             case ServerAction.DISCONNECTED: {
                 DISCONNECTED_recv(msg, ep);
+            }
+            break;
+            case ServerAction.CLSV_LOGIN: {
+                CLSV_LOGIN_recv(msg, ep);
             }
             break;
             default: {
@@ -56,13 +64,24 @@ public class MainServer implements IReceiveMsgCallBack {
     }
 
     private void DISCONNECTED_recv(BaseMessage msg, EndPoint ep) {
+        m_Log.Writeln(String.format("%s : %s", "DISCONNECTED_recv", ep.toString()));
+        if (m_CLientList.containsKey(ep.toString())) {
+            String clientID = m_CLientList.get(ep.toString());
+            m_CLientList.remove(ep.toString());
+            m_Log.Writeln(String.format("%s : %s %s", "Remove", ep.toString(), clientID));
+        }
     }
 
-    private void PLSV_LOGIN_recv(BaseMessage msg, EndPoint ep) {
-//        try {
-//
-//        } catch (Exception e) {
-//            m_Log.Writeln(String.format("%s Exception : %s", "PLSV_LOGIN_recv", e.getMessage()));
-//        }
+    private void CLSV_LOGIN_recv(BaseMessage msg, EndPoint ep) {
+        try {
+            m_CLientList.put(ep.toString(), msg.Args.get(0));
+            BaseMessage newMsg = new BaseMessage();
+            newMsg.Action = ServerAction.SVCL_LOGIN;
+            newMsg.Args.add("1");
+            m_WebSocketServerEP.Send(newMsg, ep);
+            m_Log.Writeln(String.format("%s : %s %s", "Login", ep.toString(), msg.Args.get(0)));
+        } catch (Exception e) {
+            m_Log.Writeln(String.format("%s Exception : %s", "CLSV_LOGIN_recv", e.getMessage()));
+        }
     }
 }

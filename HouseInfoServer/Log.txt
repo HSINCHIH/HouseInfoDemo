@@ -1,0 +1,9 @@
+[2016-05-27 10:55:16] "MainServer" Start
+[2016-05-27 10:55:40] "MainServer" DISCONNECTED_recv : 127.0.0.1:2413
+[2016-05-27 10:58:29] "MainServer" Start
+[2016-05-27 10:58:46] "MainServer" DISCONNECTED_recv : 127.0.0.1:2420
+[2016-05-27 10:58:46] "MainServer" Remove : 127.0.0.1:2420
+[2016-05-27 11:00:32] "MainServer" Start
+[2016-05-27 11:00:37] "MainServer" Login : 127.0.0.1:2423 Client
+[2016-05-27 11:00:45] "MainServer" DISCONNECTED_recv : 127.0.0.1:2423
+[2016-05-27 11:00:45] "MainServer" Remove : 127.0.0.1:2423 Client

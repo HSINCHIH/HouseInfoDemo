@@ -12,4 +12,6 @@ package houseinfoserver;
 public class ServerAction {
 
     public static final int DISCONNECTED = 0;
+    public static final int CLSV_LOGIN = 1;
+    public static final int SVCL_LOGIN = 2;
 }
