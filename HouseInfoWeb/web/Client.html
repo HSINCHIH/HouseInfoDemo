@@ -16,7 +16,7 @@ and open the template in the editor.
             var g_Object = null;
             function OnMyLoad()
             {
-                client = new HouseInfoClient();
+                g_Object = new HouseInfoClient();
             }
         </script>
     </head>
@@ -38,14 +38,6 @@ and open the template in the editor.
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">功能 <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" onclick="">回報問題 </a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="#" onclick="g_Object.Login()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                                 <li><a href="#" onclick=""><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
@@ -54,8 +46,16 @@ and open the template in the editor.
                     </div><!-- /.container-fluid -->
                 </nav>
             </header>
-            <div class="row" id="DIV_Game">
-            </div> 
+            <div class="row">               
+                <div class="col-md-12 col-xs-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Scan for..." id="TB_INPUT">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="BT_NOTIFY" onclick="g_Object.Notify()">Notify</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
             <div id="DIV_Version"></div>
         </div>
         <!-- Bootstrap core JavaScript

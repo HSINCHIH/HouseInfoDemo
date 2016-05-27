@@ -11,13 +11,14 @@ function StringFormat()
     }
     return result;
 }
-function DigitFormat(value, digit)
+function DigitFormat(digit, value)
 {
     var valueLength = value.toString().length;
+    var digitLength = digit.toString().length;
     var result = "";
-    if (digit > valueLength)
+    if (digitLength > valueLength)
     {
-        for (var i = 0; i < digit - valueLength; i++)
+        for (var i = 0; i < digitLength - valueLength; i++)
         {
             result += "0";
         }
@@ -32,12 +33,12 @@ function GetCurrentTime(format)
     var now = new Date();
     var yyyy, MM, dd, hh, mm, ss, mis;
     yyyy = now.getFullYear();
-    MM = digitFormat("00", now.getMonth() + 1);
-    dd = digitFormat("00", now.getDate());
-    hh = digitFormat("00", now.getHours());
-    mm = digitFormat("00", now.getMinutes());
-    ss = digitFormat("00", now.getSeconds());
-    mis = digitFormat("000", now.getMilliseconds());
+    MM = DigitFormat("00", now.getMonth() + 1);
+    dd = DigitFormat("00", now.getDate());
+    hh = DigitFormat("00", now.getHours());
+    mm = DigitFormat("00", now.getMinutes());
+    ss = DigitFormat("00", now.getSeconds());
+    mis = DigitFormat("000", now.getMilliseconds());
     format = String(format).replace(/yyyy/, yyyy);
     format = String(format).replace(/MM/, MM);
     format = String(format).replace(/dd/, dd);

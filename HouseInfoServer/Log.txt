@@ -7,3 +7,44 @@
 [2016-05-27 11:00:37] "MainServer" Login : 127.0.0.1:2423 Client
 [2016-05-27 11:00:45] "MainServer" DISCONNECTED_recv : 127.0.0.1:2423
 [2016-05-27 11:00:45] "MainServer" Remove : 127.0.0.1:2423 Client
+[2016-05-27 11:59:25] "MainServer" Start
+[2016-05-27 11:59:30] "MainServer" Client Login : 127.0.0.1:2501 Client
+[2016-05-27 11:59:34] "MainServer" Monitor Login : 127.0.0.1:2502 Monitor
+[2016-05-27 13:02:57] "MainServer" Start
+[2016-05-27 13:03:07] "MainServer" Client Login : 127.0.0.1:2519 Client
+[2016-05-27 13:03:11] "MainServer" Monitor Login : 127.0.0.1:2520 Monitor
+[2016-05-27 13:04:55] "MainServer" DISCONNECTED_recv : 127.0.0.1:2520
+[2016-05-27 13:04:55] "MainServer" Monitor Remove : 127.0.0.1:2520 Monitor
+[2016-05-27 13:06:54] "MainServer" DISCONNECTED_recv : 127.0.0.1:2522
+[2016-05-27 13:08:34] "MainServer" DISCONNECTED_recv : 127.0.0.1:2524
+[2016-05-27 13:08:50] "MainServer" DISCONNECTED_recv : 127.0.0.1:2526
+[2016-05-27 13:11:56] "MainServer" DISCONNECTED_recv : 127.0.0.1:2528
+[2016-05-27 13:11:58] "MainServer" Monitor Login : 127.0.0.1:2532 Monitor
+[2016-05-27 13:14:23] "MainServer" DISCONNECTED_recv : 127.0.0.1:2532
+[2016-05-27 13:14:23] "MainServer" Monitor Remove : 127.0.0.1:2532 Monitor
+[2016-05-27 13:14:25] "MainServer" Monitor Login : 127.0.0.1:2534 Monitor
+[2016-05-27 13:15:05] "MainServer" DISCONNECTED_recv : 127.0.0.1:2534
+[2016-05-27 13:15:05] "MainServer" Monitor Remove : 127.0.0.1:2534 Monitor
+[2016-05-27 13:15:13] "MainServer" Monitor Login : 127.0.0.1:2536 Monitor
+[2016-05-27 13:18:23] "MainServer" DISCONNECTED_recv : 127.0.0.1:2536
+[2016-05-27 13:18:23] "MainServer" Monitor Remove : 127.0.0.1:2536 Monitor
+[2016-05-27 13:18:27] "MainServer" Monitor Login : 127.0.0.1:2541 Monitor
+[2016-05-27 13:20:57] "MainServer" DISCONNECTED_recv : 127.0.0.1:2541
+[2016-05-27 13:20:57] "MainServer" Monitor Remove : 127.0.0.1:2541 Monitor
+[2016-05-27 13:21:00] "MainServer" Monitor Login : 127.0.0.1:2543 Monitor
+[2016-05-27 13:21:53] "MainServer" DISCONNECTED_recv : 127.0.0.1:2543
+[2016-05-27 13:21:53] "MainServer" Monitor Remove : 127.0.0.1:2543 Monitor
+[2016-05-27 13:21:55] "MainServer" Monitor Login : 127.0.0.1:2545 Monitor
+[2016-05-27 13:23:19] "MainServer" DISCONNECTED_recv : 127.0.0.1:2545
+[2016-05-27 13:23:19] "MainServer" Monitor Remove : 127.0.0.1:2545 Monitor
+[2016-05-27 13:24:17] "MainServer" DISCONNECTED_recv : 127.0.0.1:2547
+[2016-05-27 13:25:25] "MainServer" DISCONNECTED_recv : 127.0.0.1:2549
+[2016-05-27 13:25:26] "MainServer" Monitor Login : 127.0.0.1:2551 Monitor
+[2016-05-27 13:26:42] "MainServer" DISCONNECTED_recv : 127.0.0.1:2551
+[2016-05-27 13:26:42] "MainServer" Monitor Remove : 127.0.0.1:2551 Monitor
+[2016-05-27 13:26:43] "MainServer" Monitor Login : 127.0.0.1:2553 Monitor
+[2016-05-27 13:55:48] "MainServer" Start
+[2016-05-27 13:55:54] "MainServer" Client Login : 127.0.0.1:2582 Client
+[2016-05-27 13:55:58] "MainServer" Monitor Login : 127.0.0.1:2583 Monitor
+[2016-05-27 14:01:34] "MainServer" Start
+[2016-05-27 14:02:00] "MainServer" Monitor Login : 127.0.0.1:2589 Monitor

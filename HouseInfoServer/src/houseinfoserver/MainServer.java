@@ -5,7 +5,12 @@
  */
 package houseinfoserver;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 /**
  *
@@ -18,10 +23,12 @@ public class MainServer implements IReceiveMsgCallBack {
     WebSocketServerEP m_WebSocketServerEP = null;
     HashMap<String, String> m_CLientList = new HashMap();
     HashMap<String, String> m_MonitorList = new HashMap();
+    HashMap<String, String> m_DBFile = new HashMap();
 
     public MainServer() {
         m_HostIP = Utilities.GetHostIP();
         System.out.println(String.format("Host IP : %s", m_HostIP));
+        ReadDBFile();
     }
 
     @Override
@@ -37,6 +44,10 @@ public class MainServer implements IReceiveMsgCallBack {
             break;
             case ServerAction.MOSV_LOGIN: {
                 MOSV_LOGIN_recv(msg, ep);
+            }
+            break;
+            case ServerAction.CLSV_NOFITY: {
+                CLSV_NOFITY_recv(msg, ep);
             }
             break;
             default: {
@@ -65,6 +76,33 @@ public class MainServer implements IReceiveMsgCallBack {
 
     public void Stop() {
         m_WebSocketServerEP.Stop();
+    }
+
+    private void ReadDBFile() {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("DBFile.txt"), "UTF8"));
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            String[] dataRows = sb.toString().split("\r|\n");
+            for (String row : dataRows) {
+                if (row.isEmpty()) {
+                    continue;
+                }
+                String key = row.substring(0, row.indexOf(","));
+                if (m_DBFile.containsKey(key)) {
+                    continue;
+                }
+                m_DBFile.put(key, row);
+            }
+            int lengrh = dataRows.length;
+        } catch (Exception e) {
+            m_Log.Writeln(String.format("%s Exception : %s", "ReadDBFile", e.getMessage()));
+        }
     }
 
     private void DISCONNECTED_recv(BaseMessage msg, EndPoint ep) {
@@ -102,6 +140,40 @@ public class MainServer implements IReceiveMsgCallBack {
             newMsg.Args.add("1");
             m_WebSocketServerEP.Send(newMsg, ep);
             m_Log.Writeln(String.format("%s : %s %s", "Monitor Login", ep.toString(), msg.Args.get(0)));
+        } catch (Exception e) {
+            m_Log.Writeln(String.format("%s Exception : %s", "MOSV_LOGIN_recv", e.getMessage()));
+        }
+    }
+
+    private void CLSV_NOFITY_recv(BaseMessage msg, EndPoint ep) {
+        try {
+            String dbKey = msg.Args.get(1);
+            BaseMessage newMsgClient = null;
+            if (!m_DBFile.containsKey(dbKey)) {
+                //send result for client
+                newMsgClient = new BaseMessage();
+                newMsgClient.Action = ServerAction.SVCL_NOFITY;
+                newMsgClient.Args.add("0");
+                newMsgClient.Args.add("Can't find key in DBFile..");
+                m_WebSocketServerEP.Send(newMsgClient, ep);
+                return;
+            }
+            String dbData = m_DBFile.get(dbKey);
+            //send to monitor
+            BaseMessage newMsgMonitor = new BaseMessage();
+            newMsgMonitor.Action = ServerAction.SVMO_NOFITY;
+            newMsgMonitor.Args.add(msg.Args.get(0));
+            newMsgMonitor.Args.add(dbData);
+            for (Entry<String, String> entry : m_MonitorList.entrySet()) {
+                String key = entry.getKey();
+                EndPoint sendEP = new EndPoint(key);
+                m_WebSocketServerEP.Send(newMsgMonitor, sendEP);
+            }
+            //send result for client
+            newMsgClient = new BaseMessage();
+            newMsgClient.Action = ServerAction.SVCL_NOFITY;
+            newMsgClient.Args.add("1");
+            m_WebSocketServerEP.Send(newMsgClient, ep);
         } catch (Exception e) {
             m_Log.Writeln(String.format("%s Exception : %s", "MOSV_LOGIN_recv", e.getMessage()));
         }

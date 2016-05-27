@@ -34,6 +34,12 @@ HouseInfoMonitor.prototype = {
                     this.m_IsLogin = true;
                 }
                 break;
+            case ServerAction.SVMO_NOFITY:
+                {
+                    console.log(recvMsg.toString());
+                    $("#TABLE_DATA").prepend('<tr><td>' + GetCurrentTime("hh:mm:ss") + '</td><td>' + recvMsg.Args[1] + '</td></tr>');
+                }
+                break;
         }
     },
     OnError: function (event)
@@ -76,6 +82,10 @@ HouseInfoMonitor.prototype = {
         newMsg.Action = ServerAction.MOSV_LOGIN;
         newMsg.Args.push("Monitor");
         this.Send(newMsg);
+    },
+    CleanRecord:function()
+    {
+         $("#TABLE_DATA").empty();
     },
     Init: function ()
     {

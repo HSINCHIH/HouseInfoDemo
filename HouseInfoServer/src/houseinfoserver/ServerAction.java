@@ -16,4 +16,7 @@ public class ServerAction {
     public static final int SVCL_LOGIN = 2;
     public static final int MOSV_LOGIN = 3;
     public static final int SVMO_LOGIN = 4;
+    public static final int CLSV_NOFITY = 5;
+    public static final int SVCL_NOFITY = 6;
+    public static final int SVMO_NOFITY = 7;
 }

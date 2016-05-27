@@ -11,5 +11,8 @@ var ServerAction = {
     CLSV_LOGIN: 1,
     SVCL_LOGIN: 2,
     MOSV_LOGIN: 3,
-    SVMO_LOGIN: 4
+    SVMO_LOGIN: 4,
+    CLSV_NOFITY: 5,
+    SVCL_NOFITY: 6,
+    SVMO_NOFITY: 7
 };

@@ -10,6 +10,7 @@ HouseInfoClient.prototype = {
     m_Socket: null,
     m_IsConnect: false,
     m_IsLogin: false,
+    m_ID: "Client",
     OnOpen: function (event)
     {
         console.log("OnOpen");
@@ -32,6 +33,18 @@ HouseInfoClient.prototype = {
                     console.log("Login Success");
                     alert("Login Success");
                     this.m_IsLogin = true;
+                }
+                break;
+            case ServerAction.SVCL_NOFITY:
+                {
+                    if (recvMsg.Args[0] === "0")
+                    {
+                        console.log("Notify Fail");
+                        alert("Notify Fail");
+                        return;
+                    }
+                    console.log("Notify Success");
+                    alert("Notify Success");
                 }
                 break;
         }
@@ -74,8 +87,18 @@ HouseInfoClient.prototype = {
         }
         var newMsg = new Message();
         newMsg.Action = ServerAction.CLSV_LOGIN;
-        newMsg.Args.push("Client");
+        newMsg.Args.push(this.m_ID);
         this.Send(newMsg);
+    },
+    Notify: function ()
+    {
+        var input = $("#TB_INPUT").val();
+        var newMsg = new Message();
+        newMsg.Action = ServerAction.CLSV_NOFITY;
+        newMsg.Args.push(this.m_ID);
+        newMsg.Args.push(input);
+        this.Send(newMsg);
+        console.log(input);
     },
     Init: function ()
     {
