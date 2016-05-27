@@ -9,5 +9,7 @@ var ServerPort = 99;
 var ServerAction = {
     DISCONNECTED: 0,
     CLSV_LOGIN: 1,
-    SVCL_LOGIN: 2
+    SVCL_LOGIN: 2,
+    MOSV_LOGIN: 3,
+    SVMO_LOGIN: 4
 };

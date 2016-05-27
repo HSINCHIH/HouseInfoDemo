@@ -35,6 +35,10 @@ public class MainServer implements IReceiveMsgCallBack {
                 CLSV_LOGIN_recv(msg, ep);
             }
             break;
+            case ServerAction.MOSV_LOGIN: {
+                MOSV_LOGIN_recv(msg, ep);
+            }
+            break;
             default: {
                 m_Log.Writeln(String.format("%s UnKnown message : %s", "ReceiveMsg", msg.toString()));
             }
@@ -66,9 +70,14 @@ public class MainServer implements IReceiveMsgCallBack {
     private void DISCONNECTED_recv(BaseMessage msg, EndPoint ep) {
         m_Log.Writeln(String.format("%s : %s", "DISCONNECTED_recv", ep.toString()));
         if (m_CLientList.containsKey(ep.toString())) {
-            String clientID = m_CLientList.get(ep.toString());
+            String sessionID = m_CLientList.get(ep.toString());
             m_CLientList.remove(ep.toString());
-            m_Log.Writeln(String.format("%s : %s %s", "Remove", ep.toString(), clientID));
+            m_Log.Writeln(String.format("%s : %s %s", "Client Remove", ep.toString(), sessionID));
+        }
+        if (m_MonitorList.containsKey(ep.toString())) {
+            String sessionID = m_MonitorList.get(ep.toString());
+            m_MonitorList.remove(ep.toString());
+            m_Log.Writeln(String.format("%s : %s %s", "Monitor Remove", ep.toString(), sessionID));
         }
     }
 
@@ -79,9 +88,22 @@ public class MainServer implements IReceiveMsgCallBack {
             newMsg.Action = ServerAction.SVCL_LOGIN;
             newMsg.Args.add("1");
             m_WebSocketServerEP.Send(newMsg, ep);
-            m_Log.Writeln(String.format("%s : %s %s", "Login", ep.toString(), msg.Args.get(0)));
+            m_Log.Writeln(String.format("%s : %s %s", "Client Login", ep.toString(), msg.Args.get(0)));
         } catch (Exception e) {
             m_Log.Writeln(String.format("%s Exception : %s", "CLSV_LOGIN_recv", e.getMessage()));
+        }
+    }
+
+    private void MOSV_LOGIN_recv(BaseMessage msg, EndPoint ep) {
+        try {
+            m_MonitorList.put(ep.toString(), msg.Args.get(0));
+            BaseMessage newMsg = new BaseMessage();
+            newMsg.Action = ServerAction.SVMO_LOGIN;
+            newMsg.Args.add("1");
+            m_WebSocketServerEP.Send(newMsg, ep);
+            m_Log.Writeln(String.format("%s : %s %s", "Monitor Login", ep.toString(), msg.Args.get(0)));
+        } catch (Exception e) {
+            m_Log.Writeln(String.format("%s Exception : %s", "MOSV_LOGIN_recv", e.getMessage()));
         }
     }
 }

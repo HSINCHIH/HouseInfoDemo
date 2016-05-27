@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function HouseInfoClient() {
+function HouseInfoMonitor() {
     this.Init();
 }
-HouseInfoClient.prototype = {
+HouseInfoMonitor.prototype = {
     m_Socket: null,
     m_IsConnect: false,
     m_IsLogin: false,
@@ -21,7 +21,7 @@ HouseInfoClient.prototype = {
         var recvMsg = this.ParseData(event.data);
         switch (recvMsg.Action)
         {
-            case ServerAction.SVCL_LOGIN:
+            case ServerAction.SVMO_LOGIN:
                 {
                     if (recvMsg.Args[0] === "0")
                     {
@@ -73,8 +73,8 @@ HouseInfoClient.prototype = {
             return;
         }
         var newMsg = new Message();
-        newMsg.Action = ServerAction.CLSV_LOGIN;
-        newMsg.Args.push("Client");
+        newMsg.Action = ServerAction.MOSV_LOGIN;
+        newMsg.Args.push("Monitor");
         this.Send(newMsg);
     },
     Init: function ()
@@ -88,3 +88,5 @@ HouseInfoClient.prototype = {
         $("#DIV_Version").append('<p class="text-right">Version : <strong>' + Version + '</strong></p>');
     }
 };
+
+
